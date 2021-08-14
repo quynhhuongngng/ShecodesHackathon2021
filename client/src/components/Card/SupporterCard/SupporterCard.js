@@ -59,7 +59,7 @@ function SupporterCard({ supporterFormData }) {
                 {supporterFormData.gloves !== 0 ? `Găng tay: ${supporterFormData.gloves} đôi. ` : ''}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                {supporterFormData.vehicle !== '' ? `Phương tiện: ${supporterFormData.vehicle}. ` : ''}
+                {supporterFormData.vehicle !== null ? `Phương tiện: ${supporterFormData.vehicle}. ` : ''}
                 {supporterFormData.weight !== 0 ? `Chở được: ${supporterFormData.weight} Kg. ` : ''}
               </Typography>
             </CardContent>
@@ -103,7 +103,7 @@ function SupporterCard({ supporterFormData }) {
             Phương tiện chuyên chở
           </Typography>
           <DialogContentText>
-            {supporterFormData.vehicle !== '' ? `Phương tiện: ${supporterFormData.vehicle}. ` : ''}
+            {supporterFormData.vehicle !== null ? `Phương tiện: ${supporterFormData.vehicle}. ` : ''}
             {supporterFormData.weight !== 0 ? `Chở được: ${supporterFormData.weight} Kg. ` : ''}
           </DialogContentText>
           <Typography variant="body1">

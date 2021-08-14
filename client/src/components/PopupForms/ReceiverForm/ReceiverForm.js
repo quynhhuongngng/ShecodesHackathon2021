@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
-import { CardMedia, Card } from '@material-ui/core';
+import {
+  CardMedia, Card, FormControl, InputLabel, Menu, MenuItem, Select,
+} from '@material-ui/core';
+import axios from 'axios';
 // import PlacesAutocomplete, {
 //   geocodeByAddress,
 //   geocodeByPlaceId,
@@ -44,6 +47,18 @@ export default function ReceiverForm() {
     phone: '',
     address: '',
   });
+
+  const [level1, setLevel1] = useState([]);
+
+  useEffect(async () => {
+    const { data } = await axios.get('https://raw.githubusercontent.com/daohoangson/dvhcvn/master/data/dvhcvn.json');
+    const province = data.data.map((item) => item.name);
+    console.log('res', data.data);
+    setLevel1([...province]);
+
+    console.log('province', province);
+    console.log('level1', level1);
+  }, []);
 
   const [imageReview, setImageReview] = useState(null);
 
@@ -101,21 +116,17 @@ export default function ReceiverForm() {
 
     if (validateForm(errors)) {
       console.log('form', receiverFormData);
+      try {
+        const data = axios.post('/api/recipient', receiverFormData);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
-  // const [address, setAddress] = React.useState('');
-  // const [coordinates, setCoordinates] = React.useState({
-  //   lat: null,
-  //   lng: null,
-  // });
-
-  // const handleSelect = async (value) => {
-  //   const results = await geocodeByAddress(value);
-  //   const latLng = await getLatLng(results[0]);
-  //   setAddress(value);
-  //   setCoordinates(latLng);
-  // };
+  const onChangeAddress = () => {
+    console.log('a');
+  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -298,6 +309,21 @@ export default function ReceiverForm() {
                 error={!!errors.address}
                 helperText={errors.address ? errors.address : ''}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Tỉnh thành</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  // onChange={handleChange}
+                  fullWidth
+                  label="Tỉnh thành"
+                >
+                  {/* {level1.map((item) => <MenuItem value={item}>item</MenuItem>)} */}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

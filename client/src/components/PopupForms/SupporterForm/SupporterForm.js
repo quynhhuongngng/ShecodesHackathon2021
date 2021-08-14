@@ -12,13 +12,14 @@ import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { CardMedia, Card } from '@material-ui/core';
+import axios from 'axios';
 
 import useStyles from './styles';
 
 export default function SupporterForm() {
   const classes = useStyles();
 
-  const [receiverFormData, setReceiverFormData] = useState({
+  const [supporterFormData, setsupporterFormData] = useState({
     vegetables: 0,
     noodles: 0,
     rice: 0,
@@ -48,12 +49,12 @@ export default function SupporterForm() {
     const file = e.target.files[0];
     setImageReview(URL.createObjectURL(file));
 
-    setReceiverFormData({ ...receiverFormData, image: file });
+    setsupporterFormData({ ...supporterFormData, image: file });
   };
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
-    setReceiverFormData({ ...receiverFormData, [name]: value });
+    setsupporterFormData({ ...supporterFormData, [name]: value });
     switch (name) {
       case 'name':
         errors.name = value.length === 0 ? 'Không được để trống họ tên' : '';
@@ -76,15 +77,15 @@ export default function SupporterForm() {
       (val) => val.length > 0 && (valid = false),
     );
 
-    if (receiverFormData.name.length === 0) {
+    if (supporterFormData.name.length === 0) {
       valid = false;
       err.name = 'Không được để trống họ tên';
     }
-    if (receiverFormData.phone.length !== 10) {
+    if (supporterFormData.phone.length !== 10) {
       valid = false;
       err.phone = 'Phải điền đúng số điện thoại';
     }
-    if (receiverFormData.address.length === 0) {
+    if (supporterFormData.address.length === 0) {
       valid = false;
       err.address = 'Không để trống địa chỉ';
     }
@@ -97,7 +98,12 @@ export default function SupporterForm() {
     e.preventDefault();
 
     if (validateForm(errors)) {
-      console.log('form', receiverFormData);
+      console.log('form', supporterFormData);
+      try {
+        const data = axios.post('/api/supporter', supporterFormData);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

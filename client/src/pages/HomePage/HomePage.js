@@ -27,13 +27,23 @@ export default function HomePage() {
   const [openReceive, setOpenReceive] = useState(false);
 
   const [receiver, setReceiver] = useState([]);
+  const [supporter, setSupporter] = useState([]);
 
-  useEffect(async () => {
-    // const result = await axios.get('/api/recipient');
-    // console.log('res', result.data);
-    const { data } = await axios.get('https://raw.githubusercontent.com/daohoangson/dvhcvn/master/data/dvhcvn.json');
+  useEffect(() => {
+    const getReceive = async () => {
+      const { data } = await axios.get('/api/recipient');
+      setReceiver(data);
+      console.log('rec', receiver);
+    };
 
-    console.log('res', data.data);
+    const getSupport = async () => {
+      const { data } = await axios.get('/api/supporter');
+      setSupporter(data);
+      console.log('rec', supporter);
+    };
+
+    getReceive();
+    getSupport();
   }, []);
 
   const handleClickOpenSupport = () => {
@@ -168,13 +178,13 @@ export default function HomePage() {
           <Grid item md={12} lg={7}>
             <p>Người cho</p>
             {
-              supporterForm.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
+              supporter.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
             }
           </Grid>
           <Grid item md={12} lg={5}>
             <p>Người nhận</p>
             {
-              receiverForm.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
+              receiver.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
             }
           </Grid>
         </Grid>
