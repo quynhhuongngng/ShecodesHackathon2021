@@ -71,6 +71,17 @@ function ReceiverCard({ receiverFormData }) {
           {receiverFormData.address}
         </DialogTitle>
         <DialogContent>
+          {receiverFormData.status === 1
+            ? (
+              <Typography variant="h6" color="primary">
+                Đã hỗ trợ
+              </Typography>
+            )
+            : (
+              <Typography variant="h6" color="error">
+                Chờ hỗ trợ
+              </Typography>
+            )}
           <Typography variant="body1">
             Nhu yếu phẩm
           </Typography>
@@ -108,11 +119,11 @@ function ReceiverCard({ receiverFormData }) {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Cancel
+            Thoát
           </Button>
-          {/* <Button onClick={handleClose} color="primary">
-            Subscribe
-          </Button> */}
+          <Button onClick={handleClose} color="primary">
+            Đã hỗ trợ
+          </Button>
         </DialogActions>
       </Dialog>
     </>

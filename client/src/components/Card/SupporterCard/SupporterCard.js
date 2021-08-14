@@ -75,6 +75,17 @@ function SupporterCard({ supporterFormData }) {
           {supporterFormData.address}
         </DialogTitle>
         <DialogContent>
+          {supporterFormData.status === 1
+            ? (
+              <Typography variant="h6" color="primary">
+                Đã hỗ trợ
+              </Typography>
+            )
+            : (
+              <Typography variant="h6" color="error">
+                Chờ lấy hàng
+              </Typography>
+            )}
           <Typography variant="body1">
             Nhu yếu phẩm
           </Typography>
@@ -119,7 +130,7 @@ function SupporterCard({ supporterFormData }) {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Cancel
+            Thoát
           </Button>
           {/* <Button onClick={handleClose} color="primary">
             Subscribe

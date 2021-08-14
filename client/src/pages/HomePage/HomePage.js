@@ -1,24 +1,18 @@
+/* eslint-disable max-len */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import StarIcon from '@material-ui/icons/StarBorder';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CallIcon from '@material-ui/icons/Call';
 import SearchIcon from '@material-ui/icons/Search';
 import { InputBase } from '@material-ui/core';
-import CardMedia from '@material-ui/core/CardMedia';
 import SupporterCard from '../../components/Card/SupporterCard/SupporterCard';
 import ReceiverCard from '../../components/Card/ReceiverCard/ReceiverCard';
 
@@ -26,30 +20,67 @@ import useStyles from './styles';
 
 export default function Pricing() {
   const classes = useStyles();
-  const supporterForm = {
-    vegetables: 0,
-    noodles: 0,
-    rice: 0,
-    eggs: 0,
-    milk: 0,
-    mask: 0,
-    protectCloth: 0,
-    gloves: 0,
-    name: 'Nguyen Van A',
-    phone: '0123456789',
-    address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
-    note: '',
-    image: null,
-    vehicle: '',
-    weight: 0,
-  };
+  const supporterForm = [
+    {
+      vegetables: 1,
+      noodles: 1,
+      rice: 1,
+      eggs: 1,
+      milk: 1,
+      mask: 1,
+      protectCloth: 1,
+      gloves: 1,
+      name: 'Nguyen Van A',
+      phone: '0123456789',
+      address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
+      note: '',
+      image: null,
+      vehicle: 'xe may',
+      weight: 100,
+      status: 1,
+    },
+    {
+      vegetables: 0,
+      noodles: 0,
+      rice: 0,
+      eggs: 1,
+      milk: 1,
+      mask: 1,
+      protectCloth: 0,
+      gloves: 0,
+      name: 'Nguyen Van A',
+      phone: '0123456789',
+      address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
+      note: '',
+      image: null,
+      vehicle: 'xe may',
+      weight: 100,
+      status: 0,
+    },
+  ];
 
-  const receiverForm = {
-    vegetables: 0,
+  const receiverForm = [{
+    vegetables: 1,
+    noodles: 1,
+    rice: 1,
+    eggs: 1,
+    milk: 1,
+    mask: 1,
+    protectCloth: 1,
+    gloves: 1,
+    name: 'Nguyen Van A',
+    phone: '0123456789',
+    address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
+    note: '',
+    image: null,
+    status: 0,
+  },
+  {
+    vegetables: 1,
     noodles: 0,
-    rice: 0,
+    rice: 1,
     eggs: 0,
-    milk: 0,
+    milk: 1,
     mask: 0,
     protectCloth: 0,
     gloves: 0,
@@ -58,7 +89,9 @@ export default function Pricing() {
     address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
     note: '',
     image: null,
-  };
+    status: 0,
+  },
+  ];
 
   return (
     <>
@@ -100,13 +133,17 @@ export default function Pricing() {
 
       <Container maxWidth="lg" component="main">
         <Grid container>
-          <Grid item xs={5}>
-            <p>Người cho</p>
-            <SupporterCard supporterFormData={supporterForm} />
-          </Grid>
           <Grid item xs={7}>
+            <p>Người cho</p>
+            {
+              supporterForm.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
+            }
+          </Grid>
+          <Grid item xs={5}>
             <p>Người nhận</p>
-            <ReceiverCard receiverFormData={receiverForm} />
+            {
+              receiverForm.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
+            }
           </Grid>
         </Grid>
       </Container>
