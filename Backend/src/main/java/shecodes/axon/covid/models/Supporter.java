@@ -11,18 +11,18 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "recipient")
-public class Recipient {
+@Table(name = "supporter")
+public class Supporter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private String name;
 	private String phone;
 	private String address;
-
 	private String note;
 	private String image;
 	private boolean status;
+	private String vehicle;
 	private Integer vegetables;
 	private Integer mask;
 	private Integer noodles;
@@ -31,6 +31,7 @@ public class Recipient {
 	private Integer gloves;
 	private Integer eggs;
 	private Integer milk;
+	private Integer weight;
 	public int getId() {
 		return id;
 	}
@@ -72,6 +73,12 @@ public class Recipient {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getVehicle() {
+		return vehicle;
+	}
+	public void setVehicle(String vehicle) {
+		this.vehicle = vehicle;
 	}
 	public Integer getVegetables() {
 		return vegetables;
@@ -121,16 +128,22 @@ public class Recipient {
 	public void setMilk(Integer milk) {
 		this.milk = milk;
 	}
+	public Integer getWeight() {
+		return weight;
+	}
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
 	@Override
 	public String toString() {
-		return "Recipient [id=" + id + ", name=" + name + ", phone=" + phone + ", address=" + address + ", note=" + note
-				+ ", image=" + image + ", status=" + status + ", vegetables=" + vegetables + ", mask=" + mask
-				+ ", noodles=" + noodles + ", rice=" + rice + ", protectCloth=" + protectCloth + ", gloves=" + gloves
-				+ ", eggs=" + eggs + ", milk=" + milk + "]";
+		return "Supporter [id=" + id + ", name=" + name + ", phone=" + phone + ", address=" + address + ", note=" + note
+				+ ", image=" + image + ", status=" + status + ", vehicle=" + vehicle + ", vegetables=" + vegetables
+				+ ", mask=" + mask + ", noodles=" + noodles + ", rice=" + rice + ", protectCloth=" + protectCloth
+				+ ", gloves=" + gloves + ", eggs=" + eggs + ", milk=" + milk + ", weight=" + weight + "]";
 	}
-	public Recipient(int id, String name, String phone, String address, String note, String image, boolean status,
-			Integer vegetables, Integer mask, Integer noodles, Integer rice, Integer protectCloth, Integer gloves,
-			Integer eggs, Integer milk) {
+	public Supporter(int id, String name, String phone, String address, String note, String image, boolean status,
+			String vehicle, Integer vegetables, Integer mask, Integer noodles, Integer rice, Integer protectCloth,
+			Integer gloves, Integer eggs, Integer milk, Integer weight) {
 		
 		this.id = id;
 		this.name = name;
@@ -139,6 +152,7 @@ public class Recipient {
 		this.note = note;
 		this.image = image;
 		this.status = status;
+		this.vehicle = vehicle;
 		this.vegetables = vegetables;
 		this.mask = mask;
 		this.noodles = noodles;
@@ -147,12 +161,12 @@ public class Recipient {
 		this.gloves = gloves;
 		this.eggs = eggs;
 		this.milk = milk;
+		this.weight = weight;
 	}
-	public Recipient() {
+	public Supporter() {
 		
 	}
 	
 	
-
 	
 }
