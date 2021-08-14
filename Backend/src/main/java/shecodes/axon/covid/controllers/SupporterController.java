@@ -86,7 +86,7 @@ public class SupporterController {
 
 	private static String imageDirectory = System.getProperty("user.dir") + "/images/";
 
-	@RequestMapping(value = "/image", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	@RequestMapping(value = "/imagesupporter", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
 	public ResponseEntity<?> uploadImage(@RequestParam("imageFile") MultipartFile file,
 			@RequestParam("imageName") String name) {
 		makeDirectoryIfNotExist(imageDirectory);
