@@ -35,80 +35,75 @@ import shecodes.axon.covid.services.SupporterService;
 @RestController
 @RequestMapping("/api")
 public class SupporterController {
-	
 
-	
 	@Autowired
 	private SupporterService supporterService;
-	
+
 	@Autowired
 	private SupporterRepository supporterRepository;
-	
-	
-		@GetMapping("/supporter")
-		public ResponseEntity<List<Supporter>> getAllSupporters(Model model, @RequestParam(required = false) String phone) {
-			try {
-				List<Supporter> tutorials = new ArrayList<Supporter>();
 
-				if (phone == null)
-					supporterRepository.findAll().forEach(tutorials::add);
-				else
-					supporterRepository.findByPhoneContaining(phone).forEach(tutorials::add);
+	@GetMapping("/supporter")
+	public ResponseEntity<List<Supporter>> getAllSupporters(Model model, @RequestParam(required = false) String phone) {
+		try {
+			List<Supporter> tutorials = new ArrayList<Supporter>();
 
-				if (tutorials.isEmpty()) {
-					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-				}
-				return new ResponseEntity<>(tutorials, HttpStatus.OK);
-			} catch (Exception e) {
-				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			if (phone == null)
+				supporterRepository.findAll().forEach(tutorials::add);
+			else
+				supporterRepository.findByPhoneContaining(phone).forEach(tutorials::add);
+
+			if (tutorials.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			
-			
+			return new ResponseEntity<>(tutorials, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		@PostMapping(value = "/supporter")
-		public ResponseEntity<Supporter> addNew(@RequestBody Supporter supporter) {	
-			try {
-				supporterService.save(supporter);
-				return new ResponseEntity<>(supporter, HttpStatus.CREATED);
-			} catch (Exception e) {
-				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-			
+	}
 
+	@PostMapping(value = "/supporter")
+	public ResponseEntity<Supporter> addNew(@RequestBody Supporter supporter) {
+		try {
+			supporterService.save(supporter);
+			return new ResponseEntity<>(supporter, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		@GetMapping("/supporter/{id}")
-		public ResponseEntity<Supporter> getSupporterById(@PathVariable("id") int id) {
-			Optional<Supporter> tutorialData = supporterRepository.findById(id);
 
-			if (tutorialData.isPresent()) {
-				return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+	}
+
+	@GetMapping("/supporter/{id}")
+	public ResponseEntity<Supporter> getSupporterById(@PathVariable("id") int id) {
+		Optional<Supporter> tutorialData = supporterRepository.findById(id);
+
+		if (tutorialData.isPresent()) {
+			return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		
-		 private static String imageDirectory = System.getProperty("user.dir") + "/images/";
+	}
 
-		    @RequestMapping(value = "/image", produces = {MediaType.IMAGE_PNG_VALUE, "application/json"})
-		    public ResponseEntity<?> uploadImage(@RequestParam("imageFile")MultipartFile file,
-		                                         @RequestParam("imageName") String name) {
-		        makeDirectoryIfNotExist(imageDirectory);
-		        Path fileNamePath = Paths.get(imageDirectory,
-		                name.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
-		        try {
-		            Files.write(fileNamePath, file.getBytes());
-		            return new ResponseEntity<>(name, HttpStatus.CREATED);
-		        } catch (IOException ex) {
-		            return new ResponseEntity<>("Image is not uploaded", HttpStatus.BAD_REQUEST);
-		        }
-		    }
+	private static String imageDirectory = System.getProperty("user.dir") + "/images/";
 
-		    private void makeDirectoryIfNotExist(String imageDirectory) {
-		        File directory = new File(imageDirectory);
-		        if (!directory.exists()) {
-		            directory.mkdir();
-		        }
-		    }
+	@RequestMapping(value = "/image", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	public ResponseEntity<?> uploadImage(@RequestParam("imageFile") MultipartFile file,
+			@RequestParam("imageName") String name) {
+		makeDirectoryIfNotExist(imageDirectory);
+		Path fileNamePath = Paths.get(imageDirectory,
+				name.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
+		try {
+			Files.write(fileNamePath, file.getBytes());
+			return new ResponseEntity<>(name, HttpStatus.CREATED);
+		} catch (IOException ex) {
+			return new ResponseEntity<>("Image is not uploaded", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	private void makeDirectoryIfNotExist(String imageDirectory) {
+		File directory = new File(imageDirectory);
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+	}
 }
