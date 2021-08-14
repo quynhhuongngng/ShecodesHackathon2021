@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import shecodes.axon.covid.models.Neccessary;
+
 import shecodes.axon.covid.models.Recipient;
 import shecodes.axon.covid.repositories.RecipientRepository;
-import shecodes.axon.covid.services.NeccessaryService;
+
 import shecodes.axon.covid.services.RecipientService;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -30,8 +30,7 @@ import shecodes.axon.covid.services.RecipientService;
 @RequestMapping("/api")
 public class RecipientController {
 	
-	@Autowired
-	private NeccessaryService neccessaryService;
+
 	
 	@Autowired
 	private RecipientService recipientService;
@@ -41,14 +40,14 @@ public class RecipientController {
 	
 	
 		@GetMapping("/recipient")
-		public ResponseEntity<List<Recipient>> getAllRecipients(Model model, @RequestParam(required = false) String identityCard) {
+		public ResponseEntity<List<Recipient>> getAllRecipients(Model model, @RequestParam(required = false) String phone) {
 			try {
 				List<Recipient> tutorials = new ArrayList<Recipient>();
 
-				if (identityCard == null)
+				if (phone == null)
 					recipientRepository.findAll().forEach(tutorials::add);
 				else
-					recipientRepository.findByIdentityCardContaining(identityCard).forEach(tutorials::add);
+					recipientRepository.findByPhoneContaining(phone).forEach(tutorials::add);
 
 				if (tutorials.isEmpty()) {
 					return new ResponseEntity<>(HttpStatus.NO_CONTENT);

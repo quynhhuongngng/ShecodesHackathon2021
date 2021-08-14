@@ -17,54 +17,20 @@ public class Recipient {
 	@Id
 	private int id;
 	private String username;
-	private String identityCard;
 	private String phone;
 	private String address;
-	
 	private String description;
 	private String note;
-	private int numberPeople;
 	private String picture;
 	private boolean status;
-	private boolean checkstatus;
-	private int chatboxId;
-	
-	@ManyToOne
-    @JoinColumn(name = "neccessaryid", insertable = false, updatable = false)
-	private Neccessary neccessary;
-	private Integer neccessaryid;
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Recipient [id=" + id + ", username=" + username + ", identityCard=" + identityCard + ", phone=" + phone
-				+ ", address=" + address + ", description=" + description + ", note=" + note + ", numberPeople="
-				+ numberPeople + ", picture=" + picture + ", status=" + status + ", checkstatus=" + checkstatus
-				+ ", chatboxId=" + chatboxId + ", neccessary=" + neccessary + ", neccessaryid=" + neccessaryid + "]";
-	}
-	public Recipient() {
-		
-	}
-	public Recipient(int id, String username, String identityCard, String phone, String address, String description,
-			String note, int numberPeople, String picture, boolean status, boolean checkstatus, int chatboxId,
-			Neccessary neccessary, Integer neccessaryid) {
-		
-		this.id = id;
-		this.username = username;
-		this.identityCard = identityCard;
-		this.phone = phone;
-		this.address = address;
-		this.description = description;
-		this.note = note;
-		this.numberPeople = numberPeople;
-		this.picture = picture;
-		this.status = status;
-		this.checkstatus = checkstatus;
-		this.chatboxId = chatboxId;
-		this.neccessary = neccessary;
-		this.neccessaryid = neccessaryid;
-	}
+	private Integer vegetable;
+	private Integer mask;
+	private Integer dryNoodles;
+	private Integer rice;
+	private Integer protectiveClothing;
+	private Integer glove;
+	private Integer egg;
+	private Integer milk;
 	public int getId() {
 		return id;
 	}
@@ -76,12 +42,6 @@ public class Recipient {
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getIdentityCard() {
-		return identityCard;
-	}
-	public void setIdentityCard(String identityCard) {
-		this.identityCard = identityCard;
 	}
 	public String getPhone() {
 		return phone;
@@ -107,12 +67,6 @@ public class Recipient {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public int getNumberPeople() {
-		return numberPeople;
-	}
-	public void setNumberPeople(int numberPeople) {
-		this.numberPeople = numberPeople;
-	}
 	public String getPicture() {
 		return picture;
 	}
@@ -125,31 +79,86 @@ public class Recipient {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public boolean isCheckstatus() {
-		return checkstatus;
+	public Integer getVegetable() {
+		return vegetable;
 	}
-	public void setCheckstatus(boolean checkstatus) {
-		this.checkstatus = checkstatus;
+	public void setVegetable(Integer vegetable) {
+		this.vegetable = vegetable;
 	}
-	public int getChatboxId() {
-		return chatboxId;
+	public Integer getMask() {
+		return mask;
 	}
-	public void setChatboxId(int chatboxId) {
-		this.chatboxId = chatboxId;
+	public void setMask(Integer mask) {
+		this.mask = mask;
 	}
-	public Neccessary getNeccessary() {
-		return neccessary;
+	public Integer getDryNoodles() {
+		return dryNoodles;
 	}
-	public void setNeccessary(Neccessary neccessary) {
-		this.neccessary = neccessary;
+	public void setDryNoodles(Integer dryNoodles) {
+		this.dryNoodles = dryNoodles;
 	}
-	public Integer getNeccessaryid() {
-		return neccessaryid;
+	public Integer getRice() {
+		return rice;
 	}
-	public void setNeccessaryid(Integer neccessaryid) {
-		this.neccessaryid = neccessaryid;
+	public void setRice(Integer rice) {
+		this.rice = rice;
 	}
-   
+	public Integer getProtectiveClothing() {
+		return protectiveClothing;
+	}
+	public void setProtectiveClothing(Integer protectiveClothing) {
+		this.protectiveClothing = protectiveClothing;
+	}
+	public Integer getGlove() {
+		return glove;
+	}
+	public void setGlove(Integer glove) {
+		this.glove = glove;
+	}
+	public Integer getEgg() {
+		return egg;
+	}
+	public void setEgg(Integer egg) {
+		this.egg = egg;
+	}
+	public Integer getMilk() {
+		return milk;
+	}
+	public void setMilk(Integer milk) {
+		this.milk = milk;
+	}
+	@Override
+	public String toString() {
+		return "Recipient [id=" + id + ", username=" + username + ", phone=" + phone + ", address=" + address
+				+ ", description=" + description + ", note=" + note + ", picture=" + picture + ", status=" + status
+				+ ", vegetable=" + vegetable + ", mask=" + mask + ", dryNoodles=" + dryNoodles + ", rice=" + rice
+				+ ", protectiveClothing=" + protectiveClothing + ", glove=" + glove + ", egg=" + egg + ", milk=" + milk
+				+ "]";
+	}
+	public Recipient(int id, String username, String phone, String address, String description, String note,
+			String picture, boolean status, Integer vegetable, Integer mask, Integer dryNoodles, Integer rice,
+			Integer protectiveClothing, Integer glove, Integer egg, Integer milk) {
+		
+		this.id = id;
+		this.username = username;
+		this.phone = phone;
+		this.address = address;
+		this.description = description;
+		this.note = note;
+		this.picture = picture;
+		this.status = status;
+		this.vegetable = vegetable;
+		this.mask = mask;
+		this.dryNoodles = dryNoodles;
+		this.rice = rice;
+		this.protectiveClothing = protectiveClothing;
+		this.glove = glove;
+		this.egg = egg;
+		this.milk = milk;
+	}
+	public Recipient() {
 	
+	}
+
 	
 }
