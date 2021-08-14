@@ -140,13 +140,13 @@ export default function HomePage() {
               <CallIcon />
               <Typography styles={{ marginLeft: '40px' }}>Hotline: 0123 4567</Typography>
             </div>
-            <Button onClick={handleClickOpenSupport}>
+            <Button onClick={handleClickOpenSupport} color="primary" variant="contained">
               Muốn cho
             </Button>
-            <Button onClick={handleClickOpenReceive}>
+            <Button onClick={handleClickOpenReceive} color="secondary" variant="contained">
               Muốn nhận
             </Button>
-            <Button href="#" color="primary" variant="outlined" className={classes.volunteer}>
+            <Button href="/volunteers" color="primary" variant="outlined" className={classes.volunteer}>
               Tình nguyện viên
             </Button>
           </nav>
@@ -155,13 +155,13 @@ export default function HomePage() {
 
       <Container maxWidth="lg" component="main">
         <Grid container>
-          <Grid item xs={7}>
+          <Grid item md={12} lg={7}>
             <p>Người cho</p>
             {
               supporterForm.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
             }
           </Grid>
-          <Grid item xs={5}>
+          <Grid item md={12} lg={5}>
             <p>Người nhận</p>
             {
               receiverForm.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
