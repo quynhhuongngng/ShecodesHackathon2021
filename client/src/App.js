@@ -1,14 +1,26 @@
 import React from 'react';
-// import Pricing from './components/AppBar/AppBar';
-// import './App.css';
-// import ReceiverForm from './components/PopupForms/ReceiverForm/ReceiverForm';
-// import SupporterForm from './components/PopupForms/SupporterForm/SupporterForm';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import Dashboard from './pages/Dashboard/Dashboard';
 import HomePage from './pages/HomePage/HomePage';
 
 function App() {
   return (
     <div>
-      <HomePage />
+      <Router>
+        <Switch>
+          <Route exact path="/volunteers">
+            <Dashboard />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+
     </div>
   );
 }
