@@ -53,10 +53,7 @@ public class RecipientController {
 				if (tutorials.isEmpty()) {
 					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 				}
-				
-				
 				return new ResponseEntity<>(tutorials, HttpStatus.OK);
-				
 			} catch (Exception e) {
 				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -65,7 +62,7 @@ public class RecipientController {
 		}
 
 		@PostMapping(value = "/recipient")
-		public ResponseEntity<Recipient> addNew(Recipient recipient) {	
+		public ResponseEntity<Recipient> addNew(@RequestBody Recipient recipient) {	
 			try {
 				recipientService.save(recipient);
 				return new ResponseEntity<>(recipient, HttpStatus.CREATED);
