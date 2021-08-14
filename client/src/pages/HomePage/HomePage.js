@@ -2,13 +2,13 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import CallIcon from '@material-ui/icons/Call';
 import SearchIcon from '@material-ui/icons/Search';
@@ -25,6 +25,16 @@ export default function HomePage() {
 
   const [openSupport, setOpenSupport] = useState(false);
   const [openReceive, setOpenReceive] = useState(false);
+
+  const [receiver, setReceiver] = useState([]);
+
+  useEffect(async () => {
+    // const result = await axios.get('/api/recipient');
+    // console.log('res', result.data);
+    const { data } = await axios.get('https://raw.githubusercontent.com/daohoangson/dvhcvn/master/data/dvhcvn.json');
+
+    console.log('res', data.data);
+  }, []);
 
   const handleClickOpenSupport = () => {
     setOpenSupport(true);
