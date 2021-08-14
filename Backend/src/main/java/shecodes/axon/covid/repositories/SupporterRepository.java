@@ -8,12 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
-import shecodes.axon.covid.models.Recipient;
+import shecodes.axon.covid.models.Supporter;
 
 @Repository
-public interface RecipientRepository extends JpaRepository<Recipient, Integer>{
+public interface SupporterRepository extends JpaRepository<Supporter, Integer>{
 
-	List<Recipient> findByPhoneContaining(String phone);
+	List<Supporter> findByPhoneContaining(String phone);
+
+
 
 
 }
