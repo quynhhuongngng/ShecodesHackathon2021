@@ -6,15 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "recipient")
 public class Recipient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
@@ -38,6 +35,36 @@ public class Recipient {
 	private Integer neccessaryid;
 	
 	
+	
+	@Override
+	public String toString() {
+		return "Recipient [id=" + id + ", username=" + username + ", identityCard=" + identityCard + ", phone=" + phone
+				+ ", address=" + address + ", description=" + description + ", note=" + note + ", numberPeople="
+				+ numberPeople + ", picture=" + picture + ", status=" + status + ", checkstatus=" + checkstatus
+				+ ", chatboxId=" + chatboxId + ", neccessary=" + neccessary + ", neccessaryid=" + neccessaryid + "]";
+	}
+	public Recipient() {
+		
+	}
+	public Recipient(int id, String username, String identityCard, String phone, String address, String description,
+			String note, int numberPeople, String picture, boolean status, boolean checkstatus, int chatboxId,
+			Neccessary neccessary, Integer neccessaryid) {
+		
+		this.id = id;
+		this.username = username;
+		this.identityCard = identityCard;
+		this.phone = phone;
+		this.address = address;
+		this.description = description;
+		this.note = note;
+		this.numberPeople = numberPeople;
+		this.picture = picture;
+		this.status = status;
+		this.checkstatus = checkstatus;
+		this.chatboxId = chatboxId;
+		this.neccessary = neccessary;
+		this.neccessaryid = neccessaryid;
+	}
 	public int getId() {
 		return id;
 	}

@@ -13,8 +13,8 @@ import shecodes.axon.covid.models.Recipient;
 import shecodes.axon.covid.services.NeccessaryService;
 import shecodes.axon.covid.services.RecipientService;
 
-@Controller
-//@RestController
+//@Controller
+@RestController
 public class ApplicationController {
 	
 	@Autowired

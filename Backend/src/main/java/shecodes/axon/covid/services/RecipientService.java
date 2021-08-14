@@ -30,8 +30,8 @@ public class RecipientService {
 	}
 
 	// Update 
-	public void save(Recipient country) {
-		recipientRepository.save(country);
+	public void save(Recipient recipient) {
+		recipientRepository.save(recipient);
 	}
 
 	
