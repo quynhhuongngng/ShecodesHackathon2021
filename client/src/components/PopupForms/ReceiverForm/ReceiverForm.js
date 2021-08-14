@@ -133,7 +133,7 @@ export default function ReceiverForm() {
                 variant="outlined"
                 fullWidth
                 id="vegetables"
-                label="Rau củ quả"
+                label="Rau củ quả (KG)"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
@@ -147,7 +147,7 @@ export default function ReceiverForm() {
                 variant="outlined"
                 fullWidth
                 id="noodles"
-                label="Mì gói"
+                label="Mì gói (thùng)"
                 name="noodles"
                 autoComplete="noodles"
                 type="number"
@@ -164,7 +164,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 id="rice"
-                label="Gạo"
+                label="Gạo (KG)"
                 name="rice"
                 autoComplete="rice"
                 InputLabelProps={{
@@ -180,7 +180,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 name="eggs"
-                label="Trứng"
+                label="Trứng (Quả)"
                 id="eggs"
                 autoComplete="eggs"
                 InputLabelProps={{
@@ -196,7 +196,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 name="milk"
-                label="Sữa"
+                label="Sữa (Hộp)"
                 id="milk"
                 autoComplete="milk"
                 InputLabelProps={{
@@ -212,7 +212,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 name="mask"
-                label="Khẩu trang"
+                label="Khẩu trang (Hộp)"
                 id="mask"
                 autoComplete="mask"
                 InputLabelProps={{
@@ -228,7 +228,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 name="protectCloth"
-                label="Đồ bảo hộ"
+                label="Đồ bảo hộ (Bộ)"
                 id="protectCloth"
                 autoComplete="protectCloth"
                 InputLabelProps={{
@@ -244,7 +244,7 @@ export default function ReceiverForm() {
                 type="number"
                 fullWidth
                 name="gloves"
-                label="Găng tay"
+                label="Găng tay (Đôi)"
                 id="gloves"
                 autoComplete="gloves"
                 InputLabelProps={{
