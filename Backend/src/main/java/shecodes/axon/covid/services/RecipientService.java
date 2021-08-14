@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import shecodes.axon.covid.models.Recipient;
 import shecodes.axon.covid.repositories.RecipientRepository;
 
+@Service
 public class RecipientService {
 	@Autowired
 	private RecipientRepository recipientRepository;
