@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,12 +11,14 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
-import { CardMedia, Card } from '@material-ui/core';
+import {
+  CardMedia, Card, FormControl, InputLabel, Menu, MenuItem, Select,
+} from '@material-ui/core';
 import axios from 'axios';
 
 import useStyles from './styles';
 
-export default function SupporterForm() {
+export default function SupporterForm({ supporter, setSupporter }) {
   const classes = useStyles();
 
   const [supporterFormData, setsupporterFormData] = useState({
@@ -44,6 +46,20 @@ export default function SupporterForm() {
   });
 
   const [imageReview, setImageReview] = useState(null);
+
+  const [addressData, setAddressData] = useState({
+    province: '', district: '', ward: '', number: '',
+  });
+  const [level1, setLevel1] = useState([]);
+  const [level2, setLevel2] = useState([]);
+  const [level3, setLevel3] = useState([]);
+
+  useEffect(async () => {
+    const { data } = await axios.get('https://raw.githubusercontent.com/daohoangson/dvhcvn/master/data/dvhcvn.json');
+    // setAddressData(data);
+    // const province = data.data.map((item) => item.name);
+    setLevel1(data.data);
+  }, []);
 
   const handleUploadClick = (e) => {
     const file = e.target.files[0];
@@ -101,10 +117,35 @@ export default function SupporterForm() {
       console.log('form', supporterFormData);
       try {
         const data = axios.post('/api/supporter', supporterFormData);
+        const suppo = supporter;
+        suppo.push(supporterFormData);
+        setSupporter(suppo);
       } catch (err) {
         console.log(err);
       }
     }
+  };
+
+  const handleChangeProvince = (e) => {
+    // console.log('ad', addressData);
+    const tmp = level1.find((item) => item.name === e.target.value);
+    setAddressData({ ...addressData, province: e.target.value });
+    setLevel2(tmp.level2s);
+  };
+
+  const handleChangeDistrict = (e) => {
+    const tmp = level2.find((item) => item.name === e.target.value);
+    setAddressData({ ...addressData, district: e.target.value });
+    setLevel3(tmp.level3s);
+  };
+
+  const handleChangeWard = (e) => {
+    setAddressData({ ...addressData, ward: e.target.value });
+  };
+
+  const onInputChangeNumber = (e) => {
+    setAddressData({ ...addressData, number: e.target.value });
+    setsupporterFormData({ ...setsupporterFormData, address: `${addressData.number},  ${addressData.ward}, ${addressData.district}, ${addressData.province}` });
   };
 
   return (
@@ -309,6 +350,58 @@ export default function SupporterForm() {
                 helperText={errors.phone ? errors.phone : ''}
               />
             </Grid>
+
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Tỉnh thành</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeProvince}
+                  fullWidth
+                  label="Tỉnh thành"
+                >
+                  {level1?.length
+                    ? level1.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Quận huyện</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeDistrict}
+                  fullWidth
+                  label="Quận huyện"
+                >
+                  {level2?.length
+                    ? level2.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Phường xã</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeWard}
+                  fullWidth
+                  label="Phường xã"
+                >
+                  {level3?.length
+                    ? level3.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -318,7 +411,7 @@ export default function SupporterForm() {
                 id="address"
                 autoComplete="address"
                 required
-                onChange={onInputChange}
+                onChange={onInputChangeNumber}
                 error={!!errors.address}
                 helperText={errors.address ? errors.address : ''}
               />

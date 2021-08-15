@@ -23,7 +23,7 @@ import axios from 'axios';
 
 import useStyles from './styles';
 
-export default function ReceiverForm() {
+export default function ReceiverForm({ receiver, setReceiver, handleCloseReceive }) {
   const classes = useStyles();
 
   const [receiverFormData, setReceiverFormData] = useState({
@@ -48,16 +48,18 @@ export default function ReceiverForm() {
     address: '',
   });
 
+  const [addressData, setAddressData] = useState({
+    province: '', district: '', ward: '', number: '',
+  });
   const [level1, setLevel1] = useState([]);
+  const [level2, setLevel2] = useState([]);
+  const [level3, setLevel3] = useState([]);
 
   useEffect(async () => {
     const { data } = await axios.get('https://raw.githubusercontent.com/daohoangson/dvhcvn/master/data/dvhcvn.json');
-    const province = data.data.map((item) => item.name);
-    console.log('res', data.data);
-    setLevel1([...province]);
-
-    console.log('province', province);
-    console.log('level1', level1);
+    // setAddressData(data);
+    // const province = data.data.map((item) => item.name);
+    setLevel1(data.data);
   }, []);
 
   const [imageReview, setImageReview] = useState(null);
@@ -102,10 +104,10 @@ export default function ReceiverForm() {
       valid = false;
       err.phone = 'Phải điền đúng số điện thoại';
     }
-    if (receiverFormData.address.length === 0) {
-      valid = false;
-      err.address = 'Không để trống địa chỉ';
-    }
+    // if (receiverFormData.address.length === 0) {
+    //   valid = false;
+    //   err.address = 'Không để trống địa chỉ';
+    // }
 
     setErrors({ ...err });
     return valid;
@@ -115,17 +117,39 @@ export default function ReceiverForm() {
     e.preventDefault();
 
     if (validateForm(errors)) {
-      console.log('form', receiverFormData);
       try {
+        console.log('re', receiverFormData);
         const data = axios.post('/api/recipient', receiverFormData);
+        const recei = receiver;
+        recei.push(receiverFormData);
+        setReceiver(recei);
+        handleCloseReceive();
       } catch (err) {
         console.log(err);
       }
     }
   };
 
-  const onChangeAddress = () => {
-    console.log('a');
+  const handleChangeProvince = (e) => {
+    // console.log('ad', addressData);
+    const tmp = level1.find((item) => item.name === e.target.value);
+    setAddressData({ ...addressData, province: e.target.value });
+    setLevel2(tmp.level2s);
+  };
+
+  const handleChangeDistrict = (e) => {
+    const tmp = level2.find((item) => item.name === e.target.value);
+    setAddressData({ ...addressData, district: e.target.value });
+    setLevel3(tmp.level3s);
+  };
+
+  const handleChangeWard = (e) => {
+    setAddressData({ ...addressData, ward: e.target.value });
+  };
+
+  const onInputChangeNumber = (e) => {
+    setAddressData({ ...addressData, number: e.target.value });
+    setReceiverFormData({ ...receiverFormData, address: `${addressData.number},  ${addressData.ward}, ${addressData.district}, ${addressData.province}` });
   };
 
   return (
@@ -296,6 +320,58 @@ export default function ReceiverForm() {
                 helperText={errors.phone ? errors.phone : ''}
               />
             </Grid>
+
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Tỉnh thành</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeProvince}
+                  fullWidth
+                  label="Tỉnh thành"
+                >
+                  {level1?.length
+                    ? level1.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Quận huyện</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeDistrict}
+                  fullWidth
+                  label="Quận huyện"
+                >
+                  {level2?.length
+                    ? level2.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel>Phường xã</InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  // value={age}
+                  onChange={handleChangeWard}
+                  fullWidth
+                  label="Phường xã"
+                >
+                  {level3?.length
+                    ? level3.map((item) => <MenuItem value={item.name}>{item.name}</MenuItem>)
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -305,25 +381,10 @@ export default function ReceiverForm() {
                 id="address"
                 autoComplete="address"
                 required
-                onChange={onInputChange}
+                onChange={onInputChangeNumber}
                 error={!!errors.address}
                 helperText={errors.address ? errors.address : ''}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl variant="outlined" className={classes.formControl} fullWidth>
-                <InputLabel>Tỉnh thành</InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  // value={age}
-                  // onChange={handleChange}
-                  fullWidth
-                  label="Tỉnh thành"
-                >
-                  {/* {level1.map((item) => <MenuItem value={item}>item</MenuItem>)} */}
-                </Select>
-              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -361,46 +422,6 @@ export default function ReceiverForm() {
                 <CardMedia component="img" image={imageReview !== null ? imageReview : ''} />
               </Card>
             </Grid>
-            {/* <Grid item xs={12}>
-              <PlacesAutocomplete
-                value={address}
-                onChange={setAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps, suggestions, getSuggestionItemProps, loading,
-                }) => (
-                  <div>
-                    <p>
-                      Latitude:
-                      {coordinates.lat}
-                    </p>
-                    <p>
-                      Longitude:
-                      {coordinates.lng}
-                    </p>
-
-                    <input {...getInputProps({ placeholder: 'Type address' })} />
-
-                    <div>
-                      {loading ? <div>...loading</div> : null}
-
-                      {suggestions.map((suggestion) => {
-                        const style = {
-                          backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-                        };
-
-                        return (
-                          <div {...getSuggestionItemProps(suggestion, { style })}>
-                            {suggestion.description}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
-            </Grid> */}
           </Grid>
           <Button
             type="submit"

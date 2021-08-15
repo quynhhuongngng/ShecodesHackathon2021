@@ -191,10 +191,10 @@ export default function HomePage() {
       </Container>
 
       <Dialog open={openSupport} onClose={handleCloseSupport}>
-        <SupporterForm />
+        <SupporterForm supporter={supporter} setSupporter={setSupporter} />
       </Dialog>
       <Dialog open={openReceive} onClose={handleCloseReceive}>
-        <ReceiverForm />
+        <ReceiverForm receiver={receiver} setReceiver={setReceiver} handleCloseReceive={handleCloseReceive} />
       </Dialog>
     </>
   );
