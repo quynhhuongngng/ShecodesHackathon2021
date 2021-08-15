@@ -6,3 +6,5 @@
 
 ## Resources
 Demo app: [Youtube](https://www.youtube.com/watch?v=0MkM1tCReWo) 
+UI/UX: [Figma](https://www.figma.com/proto/RGVcdXNSRwzRJPL3z5oWTC/Website?node-id=0%3A1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=1%3A971&show-proto-sidebar=1)
+       [PDF Figma](https://drive.google.com/file/d/1YtqZXlArCq9y0kUAZHLEjAGaADLiTIRQ/view)
