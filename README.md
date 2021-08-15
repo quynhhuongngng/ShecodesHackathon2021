@@ -10,4 +10,6 @@ UI/UX: [Figma](https://www.figma.com/proto/RGVcdXNSRwzRJPL3z5oWTC/Website?node-i
 ## 📝 Topic
 ![e_bai_axon](https://user-images.githubusercontent.com/50298168/129345425-ee5a742c-540f-4624-b5d4-99b90fc77956.png)
 
+## :six_pointed_star: Introduce
+![Landing page](https://user-images.githubusercontent.com/50298168/129470344-8b528462-ca23-4e04-850b-1d8c406a703f.png)
 
