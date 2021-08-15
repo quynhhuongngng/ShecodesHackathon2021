@@ -62,85 +62,12 @@ export default function HomePage() {
     setOpenReceive(false);
   };
 
-  const supporterForm = [
-    {
-      vegetables: 1,
-      noodles: 1,
-      rice: 1,
-      eggs: 1,
-      milk: 1,
-      mask: 1,
-      protectCloth: 1,
-      gloves: 1,
-      name: 'Nguyen Van A',
-      phone: '0123456789',
-      address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
-      note: '',
-      image: null,
-      vehicle: 'xe may',
-      weight: 100,
-      status: 1,
-    },
-    {
-      vegetables: 0,
-      noodles: 0,
-      rice: 0,
-      eggs: 1,
-      milk: 1,
-      mask: 1,
-      protectCloth: 0,
-      gloves: 0,
-      name: 'Nguyen Van A',
-      phone: '0123456789',
-      address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
-      note: '',
-      image: null,
-      vehicle: 'xe may',
-      weight: 100,
-      status: 0,
-    },
-  ];
-
-  const receiverForm = [{
-    vegetables: 1,
-    noodles: 1,
-    rice: 1,
-    eggs: 1,
-    milk: 1,
-    mask: 1,
-    protectCloth: 1,
-    gloves: 1,
-    name: 'Nguyen Van A',
-    phone: '0123456789',
-    address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
-    note: '',
-    image: null,
-    status: 0,
-  },
-  {
-    vegetables: 1,
-    noodles: 0,
-    rice: 1,
-    eggs: 0,
-    milk: 1,
-    mask: 0,
-    protectCloth: 0,
-    gloves: 0,
-    name: 'Nguyen Van A',
-    phone: '0123456789',
-    address: '227 Nguyen Van Cu, phuong 5, quan 5, HCMC',
-    note: '',
-    image: null,
-    status: 0,
-  },
-  ];
-
   return (
     <>
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Project name
+            ConnectMe
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -178,20 +105,24 @@ export default function HomePage() {
           <Grid item md={12} lg={7}>
             <p>Người cho</p>
             {
-              supporter.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
+              supporter.length !== 0
+                ? supporter.map((item, index) => <SupporterCard supporterFormData={item} key={index} />)
+                : null
             }
           </Grid>
           <Grid item md={12} lg={5}>
             <p>Người nhận</p>
             {
-              receiver.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
+              receiver.length !== 0
+                ? receiver.map((item, index) => <ReceiverCard receiverFormData={item} key={index} />)
+                : null
             }
           </Grid>
         </Grid>
       </Container>
 
       <Dialog open={openSupport} onClose={handleCloseSupport}>
-        <SupporterForm supporter={supporter} setSupporter={setSupporter} />
+        <SupporterForm supporter={supporter} setSupporter={setSupporter} handleCloseSupport={handleCloseSupport} />
       </Dialog>
       <Dialog open={openReceive} onClose={handleCloseReceive}>
         <ReceiverForm receiver={receiver} setReceiver={setReceiver} handleCloseReceive={handleCloseReceive} />

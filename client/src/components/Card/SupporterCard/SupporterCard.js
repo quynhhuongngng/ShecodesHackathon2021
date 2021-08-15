@@ -38,7 +38,7 @@ function SupporterCard({ supporterFormData }) {
       <Card className={classes.root}>
         <CardActionArea onClick={handleClickOpen} className={classes.rootCard} ref={buttonRef}>
           <CardMedia>
-            <img className={classes.cover} alt="f" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" />
+            <img className={classes.cover} alt="f" src={supporterFormData.image} />
           </CardMedia>
           <div className={classes.details}>
             <CardContent className={classes.content}>

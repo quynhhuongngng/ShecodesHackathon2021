@@ -18,10 +18,10 @@ import axios from 'axios';
 
 import useStyles from './styles';
 
-export default function SupporterForm({ supporter, setSupporter }) {
+export default function SupporterForm({ supporter, setSupporter, handleCloseSupport }) {
   const classes = useStyles();
 
-  const [supporterFormData, setsupporterFormData] = useState({
+  const [supporterFormData, setSupporterFormData] = useState({
     vegetables: 0,
     noodles: 0,
     rice: 0,
@@ -65,12 +65,12 @@ export default function SupporterForm({ supporter, setSupporter }) {
     const file = e.target.files[0];
     setImageReview(URL.createObjectURL(file));
 
-    setsupporterFormData({ ...supporterFormData, image: file });
+    setSupporterFormData({ ...supporterFormData, image: `/image/${file.name}` });
   };
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
-    setsupporterFormData({ ...supporterFormData, [name]: value });
+    setSupporterFormData({ ...supporterFormData, [name]: value });
     switch (name) {
       case 'name':
         errors.name = value.length === 0 ? 'Không được để trống họ tên' : '';
@@ -93,18 +93,18 @@ export default function SupporterForm({ supporter, setSupporter }) {
       (val) => val.length > 0 && (valid = false),
     );
 
-    if (supporterFormData.name.length === 0) {
+    if (supporterFormData?.name?.length === 0) {
       valid = false;
       err.name = 'Không được để trống họ tên';
     }
-    if (supporterFormData.phone.length !== 10) {
+    if (supporterFormData?.phone?.length !== 10) {
       valid = false;
       err.phone = 'Phải điền đúng số điện thoại';
     }
-    if (supporterFormData.address.length === 0) {
-      valid = false;
-      err.address = 'Không để trống địa chỉ';
-    }
+    // if (supporterFormData.address.length === 0) {
+    //   valid = false;
+    //   err.address = 'Không để trống địa chỉ';
+    // }
 
     setErrors({ ...err });
     return valid;
@@ -114,12 +114,12 @@ export default function SupporterForm({ supporter, setSupporter }) {
     e.preventDefault();
 
     if (validateForm(errors)) {
-      console.log('form', supporterFormData);
       try {
         const data = axios.post('/api/supporter', supporterFormData);
         const suppo = supporter;
         suppo.push(supporterFormData);
         setSupporter(suppo);
+        handleCloseSupport();
       } catch (err) {
         console.log(err);
       }
@@ -145,7 +145,7 @@ export default function SupporterForm({ supporter, setSupporter }) {
 
   const onInputChangeNumber = (e) => {
     setAddressData({ ...addressData, number: e.target.value });
-    setsupporterFormData({ ...setsupporterFormData, address: `${addressData.number},  ${addressData.ward}, ${addressData.district}, ${addressData.province}` });
+    setSupporterFormData({ ...supporterFormData, address: `${addressData.number},  ${addressData.ward}, ${addressData.district}, ${addressData.province}` });
   };
 
   return (

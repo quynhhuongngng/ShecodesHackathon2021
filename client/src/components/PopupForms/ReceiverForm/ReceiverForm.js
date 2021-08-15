@@ -67,8 +67,10 @@ export default function ReceiverForm({ receiver, setReceiver, handleCloseReceive
   const handleUploadClick = (e) => {
     const file = e.target.files[0];
     setImageReview(URL.createObjectURL(file));
+    // console.log('file', file);
+    // console.log(URL.createObjectURL(file));
 
-    setReceiverFormData({ ...receiverFormData, image: file });
+    setReceiverFormData({ ...receiverFormData, image: `/image/${file.name}` });
   };
 
   const onInputChange = (e) => {
@@ -118,7 +120,6 @@ export default function ReceiverForm({ receiver, setReceiver, handleCloseReceive
 
     if (validateForm(errors)) {
       try {
-        console.log('re', receiverFormData);
         const data = axios.post('/api/recipient', receiverFormData);
         const recei = receiver;
         recei.push(receiverFormData);
